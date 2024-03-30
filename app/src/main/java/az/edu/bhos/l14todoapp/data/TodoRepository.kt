@@ -2,6 +2,7 @@ package az.edu.bhos.l14todoapp.data
 
 import az.edu.bhos.l14todoapp.entities.TodoEntity
 import kotlinx.coroutines.flow.Flow
+import kotlin.io.path.fileVisitor
 
 interface TodoRepository {
     suspend fun syncTodos()
@@ -17,6 +18,10 @@ class TodoRepositoryImpl(
     override suspend fun syncTodos() {
         val todoList = remoteData.getTodos()
         // TODO save to local
+        todoList.forEach {
+            localData.save(it.toEntity())
+        }
+
     }
 
     override fun observeTodoEntries(): Flow<List<TodoEntity>> {

@@ -7,11 +7,14 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class TodoRemoteDto(
     val title: String,
+    val completed: Boolean,
+    val weekday: String,
+    val id: String
 ) {
     fun toEntity() = TodoEntity(
-        id = "",
-        title = title,
-        completed = false,
-        weekday = ""
+        id = this.id,
+        title = this.title,
+        completed = this.completed,
+        weekday = this.weekday
     )
 }
